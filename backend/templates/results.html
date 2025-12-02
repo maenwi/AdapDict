@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AdapDict - Results</title>
+    <link rel="stylesheet" href="../static/style.css">
+</head>
+<body>
+    <main class="results-container">
+        <!-- 로고 -->
+        <h1 class="logo-text">
+            <a href="/" class="logo-link">AdapDict</a>
+        </h1>
+        
+        <!-- 🟦/🩷 영어 사전 / 백과사전 모드 토글 -->
+        <div class="mode-toggle">
+            <span id="label-dict" class="mode-label">Dictionary</span>
+            <label class="switch">
+                <input type="checkbox" id="mode-toggle-input">
+                <span class="slider round"></span>
+            </label>
+            <span id="label-ency" class="mode-label">Encyclopedia</span>
+        </div>
+
+        <!-- ✅ 언어 선택 블럭 (index.html과 동일) -->
+        <div class="lang-selector">
+            <div class="input-group">
+                <label for="native-lang-select">Native language</label>
+                <select id="native-lang-select" name="native_lang">
+                    <option value="ko">한국어 (Korean)</option>
+                    <option value="en">English</option>
+                    <option value="zh">中文 (Chinese)</option>
+                    <option value="de">Deutsch (German)</option>
+                </select>
+            </div>
+
+            <button type="button" id="swap-lang-btn" class="swap-lang-btn">↔</button>
+
+            <div class="input-group">
+                <label for="target-lang-select">Target language</label>
+                <select id="target-lang-select" name="target_lang">
+                    <option value="en">English</option>
+                    <option value="ko">한국어 (Korean)</option>
+                    <option value="zh">中文 (Chinese)</option>
+                    <option value="de">Deutsch (German)</option>
+                </select>
+            </div>
+        </div>
+        <!-- ✅ 언어 선택 블럭 끝 -->
+
+        <!-- 🔍 결과 페이지 상단 검색 폼 -->
+        <form id="results-search-form">
+            <!-- 현재 모드 유지용 hidden input -->
+            <input type="hidden" name="mode" id="mode-input" value="dict">
+
+            <div class="options-grid">
+                <div class="input-group">
+                    <label for="education-select">Level</label>
+                    <select id="education-select" name="education">
+                        <option value="elementary">Elementary school</option>
+                        <option value="middle">Middle school</option>
+                        <option value="high">High school</option>
+                        <option value="bachelor">Bachelor</option>
+                        <option value="master">Master</option>
+                        <option value="doctor">PhD</option>
+                    </select>
+                </div>
+                
+                <div class="input-group">
+                    <label for="field-input">Field</label>
+                    <input 
+                        type="text" 
+                        id="field-input" 
+                        name="field" 
+                        placeholder="e.g., Computer Science, Law, AI"
+                    >
+                </div>
+            </div>
+
+            <div class="search-bar-group">
+                <input 
+                    type="search" 
+                    id="search-input" 
+                    name="query" 
+                    placeholder="Type a word, sentence, or paragraph..." 
+                    required
+                >
+            </div>
+
+            <div class="button-group">
+                <button type="submit">Search</button>
+            </div>
+        </form>
+
+        <!-- 검색 요약 카드 -->
+        <section class="search-summary card">
+            <h2 class="section-title">Search summary</h2>
+            <div class="summary-row">
+                <span class="summary-label">Languages</span>
+                <span class="summary-value" id="summary-lang"></span>
+            </div>
+            <div class="summary-row">
+                <span class="summary-label">Level</span>
+                <span class="summary-value" id="summary-education"></span>
+            </div>
+            <div class="summary-row">
+                <span class="summary-label">Field</span>
+                <span class="summary-value" id="summary-field"></span>
+            </div>
+            <div class="summary-row">
+                <span class="summary-label">Query</span>
+                <span class="summary-value keyword" id="summary-query"></span>
+            </div>
+        </section>
+
+        <!-- 🔔 Query issue 카드 (TYPO / AMBIGUOUS / ... ) -->
+        <section id="query-issue" class="card query-issue-card" style="display:none;">
+            <h2 class="section-title">Query issue</h2>
+            <p id="query-issue-message" class="query-issue-message"></p>
+            <div id="query-issue-suggestions" class="query-issue-suggestions"></div>
+        </section>
+
+        <!-- 결과 카드 -->
+        <section class="result-section card">
+            <h2 class="section-title">Results</h2>
+            <div id="result-content" class="result-content">
+                Loading...
+            </div>
+        </section>
+
+        <!-- 다시 검색하기 -->
+        <section class="back-link">
+            <a href="/" class="back-link-btn">🏠 Back to home</a>
+        </section>
+    </main>
+
+    <script src="../static/results.js"></script>
+</body>
+</html>

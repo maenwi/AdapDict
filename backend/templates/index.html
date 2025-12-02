@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AdapDict</title>
+    <link rel="stylesheet" href="../static/style.css">
+</head>
+<body>
+    <main class="search-container">
+        
+        <!-- 로고 + 모드에 따라 색이 바뀌도록 클래스 추가 -->
+        <!-- 로고를 누르면 첫 화면으로 돌아도록 수정정 -->
+        <h1 class="logo-text logo-mode-dict">
+            <a href="/" class="logo-link">AdapDict</a>
+        </h1>
+        
+
+        <!-- 🔁 영어 사전 / 백과사전 모드 토글 -->
+        <div class="mode-toggle">
+            <span id="label-dict" class="mode-label active">Dictionary</span>
+            <label class="switch">
+                <input type="checkbox" id="mode-toggle-input">
+                <span class="slider round"></span>
+            </label>
+            <span id="label-ency" class="mode-label">Encyclopedia</span>
+        </div>
+
+        <form id="search-form">
+            <!-- 현재 모드 백엔드로 보내기 위한 hidden input -->
+            <input type="hidden" name="mode" id="mode-input" value="dict">
+
+            <!-- ✅ 언어 선택 블럭 추가: 모국어 / 공부 언어 + 스왑 버튼 -->
+            <div class="lang-selector">
+                <div class="input-group">
+                    <label for="native-lang-select">Native language</label>
+                    <select id="native-lang-select" name="native_lang">
+                        <option value="ko">한국어 (Korean)</option>
+                        <option value="en">English</option>
+                        <option value="zh">中文 (Chinese)</option>
+                        <option value="de">Deutsch (German)</option>
+                    </select>
+                </div>
+
+                <button type="button" id="swap-lang-btn" class="swap-lang-btn">↔</button>
+
+                <div class="input-group">
+                    <label for="target-lang-select">Target language</label>
+                    <select id="target-lang-select" name="target_lang">
+                        <option value="en">English</option>
+                        <option value="ko">한국어 (Korean)</option>
+                        <option value="zh">中文 (Chinese)</option>
+                        <option value="de">Deutsch (German)</option>
+                    </select>
+                </div>
+            </div>
+            <!-- ✅ 언어 선택 블럭 끝 -->
+
+            <div class="options-grid">
+                <div class="input-group">
+                    <label for="education-select">Level</label>
+                    <select id="education-select" name="education">
+                        <option value="elementary">Elementary school</option>
+                        <option value="middle">Middle school</option>
+                        <option value="high">High school</option>
+                        <option value="bachelor">Bachelor</option>
+                        <option value="master">Master</option>
+                        <option value="doctor">PhD</option>
+                    </select>
+                </div>
+                
+                <div class="input-group">
+                    <label for="field-input">Field</label>
+                    <input 
+                        type="text" 
+                        id="field-input" 
+                        name="field" 
+                        placeholder="e.g., Computer Science, Law, AI"
+                    >
+                </div>
+            </div>
+
+            <div class="search-bar-group">
+                <input 
+                    type="search" 
+                    id="search-input" 
+                    name="query" 
+                    placeholder="Enter words, sentences, or paragraphs" 
+                    rows="1"
+                    required
+                ></textarea>
+            </div>
+
+            <div class="button-group">
+                <button type="submit">Search
+                </button>
+                <button type="button" id="lucky-button">I'm Feeling Lucky</button> 
+            </div>
+        </form>
+    </main>
+
+    <script src="../static/script.js"></script>
+</body>
+</html>

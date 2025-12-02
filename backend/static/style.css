@@ -1,0 +1,655 @@
+/* style.css 파일 */
+
+/* ========================= */
+/* 기본 설정 (공통)          */
+/* ========================= */
+body {
+    background-color: #f8f9fa; /* 구글과 비슷한 배경색 */
+    font-family: 'Inter', sans-serif;
+    margin: 0;
+    
+    /* 화면 중앙 정렬 */
+    min-height: 100vh; 
+    display: flex;
+    justify-content: center; /* 가로 중앙 */
+    align-items: center;     /* 세로 중앙 */
+}
+
+/* 메인 화면 전체 컨테이너 */
+.search-container {
+    display: flex;
+    flex-direction: column; 
+    align-items: center;     
+    width: 100%;
+    max-width: 600px; 
+    padding: 20px;
+}
+
+/* SenseDict 텍스트 로고 */
+.logo-text {
+    font-size: 90px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    transition: color 0.25s ease;
+}
+
+.logo-link {
+    text-decoration: none;
+    color: inherit;      /* h1.logo-text 색 그대로 사용 */
+    cursor: pointer;
+}
+
+.logo-link:visited {
+    color: inherit;
+}
+
+
+/* 메인 화면 검색 폼 */
+#search-form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* 학력/분야를 2열로 나누는 그리드 (메인 화면) */
+.options-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr; 
+    gap: 15px; 
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.input-group label {
+    font-size: 14px;
+    color: #5f6368;
+    margin-bottom: 5px;
+}
+
+/* 드롭다운 메뉴와 텍스트 입력창 (메인 화면) */
+.input-group select,
+.input-group input[type="text"] {
+    padding: 8px 10px;
+    border: 1px solid #dfe1e5;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+/* 메인 검색창 그룹 (메인 화면) */
+.search-bar-group {
+    width: 100%;
+    margin-bottom: 25px;
+}
+
+/* ================================ */
+/* ✅ input + textarea 통합 검색창  */
+/* ================================ */
+.search-bar-group input,
+.search-bar-group textarea {
+    width: 100%;
+    padding: 12px 20px;
+    font-size: 16px;
+    border: 1px solid #dfe1e5;
+    border-radius: 24px;
+    box-sizing: border-box;
+}
+
+/* hover / focus 효과 */
+.search-bar-group input:hover,
+.search-bar-group input:focus,
+.search-bar-group textarea:hover,
+.search-bar-group textarea:focus {
+    border-color: #c4c8cd;
+    box-shadow: 0 1px 6px rgba(32,33,36,0.28);
+    outline: none;
+}
+
+/* ================================ */
+/* ✅ 자동으로 높이 늘어나는 textarea  */
+/* ================================ */
+.search-textarea {
+    resize: none;        /* 크기 드래그 비활성화 */
+    overflow: hidden;    /* 내부 스크롤 숨김 */
+    line-height: 1.4;
+    min-height: 44px;    /* 기본 검색창 높이 */
+    max-height: 180px;   /* 너무 길어지는 것 방지 */
+}
+
+
+/* 버튼 스타일 (메인 화면) */
+.button-group button {
+    background-color: #f8f9fa;
+    border: 1px solid #f8f9fa;
+    border-radius: 4px;
+    color: #3c4043;
+    font-size: 14px;
+    margin: 11px 4px;
+    padding: 10px 16px;
+    cursor: pointer;
+}
+
+.button-group button:hover {
+    border-color: #dadce0;
+    box-shadow: 0 1px 1px rgba(0,0,0,0.1);
+}
+
+
+/* ===================================================== */
+/*         ✅ 언어 선택 (native_lang / target_lang)       */
+/* ===================================================== */
+
+.lang-selector {
+    display: flex;
+    align-items: flex-end;     /* 아래 기준으로 맞춤 */
+    gap: 8px;
+    width: 100%;
+    max-width: 600px;
+    margin-top: 12px;
+    margin-bottom: 12px;
+}
+
+.lang-selector .input-group {
+    flex: 1 1 0;
+}
+
+.swap-lang-btn {
+    align-self: center;
+    padding: 0 12px;
+    height: 38px;
+    border-radius: 999px;
+    border: 1px solid #dfe1e5;
+    background-color: #ffffff;
+    cursor: pointer;
+    font-size: 16px;
+    line-height: 1;
+}
+
+.swap-lang-btn:hover {
+    border-color: #c4c8cd;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+}
+
+
+/* ========================= */
+/* 결과 화면 카드/본문       */
+/* ========================= */
+.results-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 700px;
+    padding: 20px;
+}
+
+/* 카드 공통 스타일 */
+.card {
+    width: 100%;
+    background-color: #ffffff;
+    border-radius: 8px;
+    padding: 18px 20px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+    box-sizing: border-box;
+    margin-bottom: 16px;
+}
+
+/* 섹션 제목 */
+.section-title {
+    font-size: 18px;
+    margin: 0 0 12px 0;
+    color: #202124;
+}
+
+/* --- 검색 요약 라인 레이아웃 (Language 안 잘리게) --- */
+.summary-row {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    column-gap: 8px;
+    align-items: flex-start;
+    margin: 6px 0;
+    font-size: 14px;
+}
+
+/* 라벨 */
+.summary-label {
+    font-weight: 600;
+    white-space: nowrap;
+    overflow: visible;
+    text-overflow: clip;
+    color: #5f6368;
+}
+
+/* 값 */
+.summary-value {
+    font-weight: 500;
+    color: #202124;
+    word-break: break-word;
+    line-height: 1.6;
+}
+
+.summary-value.keyword {
+    color: #1a73e8;
+}
+
+/* 영어사전 모드 검색어 색 */
+.logo-mode-dict ~ .search-summary .summary-value.keyword {
+    color: #1a73e8;
+}
+
+/* 백과사전 모드 검색어 색 */
+.logo-mode-ency ~ .search-summary .summary-value.keyword {
+    color: #fe899b;
+}
+
+/* 결과 본문 영역 */
+.result-content {
+    font-size: 15px;
+    line-height: 1.6;
+    color: #202124;
+    word-break: keep-all;
+}
+
+/* 다시 검색하기 링크 */
+.back-link {
+    margin-top: 8px;
+}
+
+.back-link-btn {
+    display: inline-block;
+    padding: 8px 14px;
+    border-radius: 4px;
+    border: 1px solid #dadce0;
+    text-decoration: none;
+    font-size: 14px;
+    color: #3c4043;
+    background-color: #f8f9fa;
+}
+
+.back-link-btn:hover {
+    border-color: #c4c8cd;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+}
+
+
+/* ========================= */
+/* 결과 페이지 상단 검색바   */
+/* ========================= */
+
+#results-search-form {
+    display: flex;
+    align-items: flex-end;
+    gap: 12px;
+    flex-wrap: nowrap;
+    width: 100%;
+    max-width: 800px;
+    margin-bottom: 24px;
+}
+
+/* 왼쪽 2개 입력칸 */
+#results-search-form .options-grid {
+    display: flex;
+    gap: 12px;
+    margin: 0;
+    width: auto;
+    flex: 0 0 auto;
+}
+
+/* input-group */
+#results-search-form .input-group {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+#results-search-form .input-group label {
+    margin: 0 0 4px 0;
+    font-size: 13px;
+    color: #5f6368;
+    white-space: nowrap;
+}
+
+/* 검색창 */
+#results-search-form .search-bar-group {
+    margin: 0;
+    flex: 1 1 0;
+}
+
+/* 버튼 */
+#results-search-form .button-group {
+    margin: 0;
+    flex: 0 0 auto;
+}
+
+#results-search-form select,
+#results-search-form input[type="text"],
+#results-search-form #search-input,
+#results-search-form button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 40px;
+    padding: 0 16px;
+    border-radius: 999px;
+    border: 1px solid #dfe1e5;
+    font-size: 14px;
+    box-sizing: border-box;
+    background-color: #ffffff;
+}
+
+#results-search-form .input-group select,
+#results-search-form .input-group input[type="text"] {
+    min-width: 120px;
+}
+
+#results-search-form .input-group select {
+    appearance: auto;
+    background-image: none;
+    padding-right: 16px;
+}
+
+#results-search-form #search-input {
+    width: 100%;
+}
+
+#results-search-form .button-group button {
+    background-color: #f8f9fa;
+    color: #3c4043;
+    cursor: pointer;
+    white-space: nowrap;
+    border-color: #dadce0;
+    margin: 0;
+}
+
+#results-search-form .button-group button:hover {
+    border-color: #c4c8cd;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+}
+
+
+/* ================================= */
+/*      모드별 로고 색 + 토글 UI     */
+/* ================================= */
+
+.logo-mode-dict {
+    color: #4285F4;
+}
+
+.logo-mode-ency {
+    color: #fe899b;
+}
+
+.mode-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 24px;
+    font-size: 14px;
+}
+
+.mode-label {
+    color: #777;
+    cursor: pointer;
+    user-select: none;
+    transition: color 0.2s ease, font-weight 0.2s ease;
+}
+
+.mode-label.active {
+    color: #333;
+    font-weight: 600;
+}
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 44px;
+    height: 24px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    inset: 0;
+    background-color: #4285F4;
+    transition: 0.25s;
+    border-radius: 34px;
+}
+
+.switch input:checked + .slider {
+    background-color: #fe899b;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 18px;
+    width: 18px;
+    left: 3px;
+    bottom: 3px;
+    background-color: white;
+    transition: 0.25s;
+    border-radius: 50%;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+}
+
+.switch input:checked + .slider:before {
+    transform: translateX(20px);
+}
+
+
+/* ========================= */
+/*  단어별 결과 카드 (공통)  */
+/* ========================= */
+
+.word-card {
+    background-color: #ffffff;
+    border: 1.5px solid #d0d7de;
+    border-radius: 12px;
+    padding: 16px 24px;
+    margin-bottom: 20px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+    transition: box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.mode-dict .word-card:hover {
+    border-color: #0078ff;
+    box-shadow: 0 2px 8px rgba(0, 120, 255, 0.15);
+}
+
+.mode-ency .word-card:hover {
+    border-color: #fe899b;
+    box-shadow: 0 2px 8px rgba(254, 137, 155, 0.18);
+}
+
+.mode-ency .word-card.is-selected,
+.mode-ency .word-card[aria-selected="true"] {
+    border-color: #fe899b;
+    box-shadow: 0 2px 10px rgba(254, 137, 155, 0.22);
+}
+
+.word-card:focus-within {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(66, 133, 244, 0.25);
+    border-color: #d0d7de;
+}
+
+/* 카드 요소들 */
+.word-title {
+    margin: 0 0 8px;
+    font-size: 1.2rem;
+    font-weight: 700;
+}
+
+.meaning-block {
+    margin-top: 12px;
+    padding-top: 8px;
+    border-top: 1px solid gray;
+}
+
+.examples-title,
+.nuance-title {
+    margin: 4px 0;
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.examples-list {
+    margin: 4px 0 8px 16px;
+    padding: 0;
+}
+
+.example-item {
+    margin-bottom: 4px;
+    list-style: disc;
+}
+
+.example-sentence {
+    font-weight: 500;
+}
+
+.example-translation {
+    font-size: 0.9rem;
+    color: #555;
+}
+
+.sentence-block {
+    border-top: 1px solid #eee;
+    margin-top: 0px;
+    padding-top: 12px;
+}
+
+.sentence-text {
+    font-size: 1rem;
+    font-weight: 400;
+    color: #222;
+}
+
+.alternative-list {
+    margin-left: 16px;
+    color: #444;
+    font-size: 0.95rem;
+}
+
+.sentence-explanation {
+    margin-top: 6px;
+    color: #555;
+    font-size: 0.9rem;
+}
+
+.sentence-card .sentence-block {
+    border-top: none !important;
+    padding-top: 0.5rem !important;
+    padding-bottom: 0.75rem !important;
+}
+
+.sentence-card .sentence-text {
+    margin-top: 0.25rem;
+    margin-bottom: 0.25rem;
+}
+
+.sentence-alternatives {
+    margin-top: 0.5rem;
+    margin-bottom: 0.75rem;
+    padding-left: 1.2rem;
+    list-style-type: disc;
+}
+
+.sentence-alternatives .alt-line {
+    margin: 0.25rem 0;
+    color: #333;
+    font-size: 0.95rem;
+    line-height: 1.4;
+}
+
+.paragraph-sentence-container {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    overflow: hidden;
+}
+
+.paragraph-sentence-track {
+    flex: 1;
+}
+
+.para-nav {
+    cursor: pointer;
+}
+
+.paragraph-sentence-track {
+    cursor: pointer;
+}
+
+.paragraph-sentence-track .sentence-card {
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.paragraph-card .word-card {
+    margin-left: 0;
+    margin-right: 0;
+}
+
+.paragraph-sentence-indicator {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.4rem;
+    margin: 0.5rem 0 0.75rem;
+}
+
+.page-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: #cccccc;
+    cursor: pointer;
+}
+
+.page-dot.active {
+    background-color: #007bff;
+}
+
+.paragraph-sentence-track {
+    cursor: pointer;
+}
+
+/* ========================= */
+/*   Query issue (INVALID)   */
+/* ========================= */
+
+.query-issue-card {
+    border-left: 4px solid #fbbc04;      /* 노란색 포인트 */
+    background-color: #fff9e6;           /* 살짝 노란 배경 */
+}
+
+.query-issue-card .sentence-meta {
+    margin-top: 4px;
+    margin-bottom: 4px;
+    font-size: 0.9rem;
+    color: #5f6368;
+}
+
+.query-issue-card .sentence-explanation {
+    margin-top: 8px;
+    font-size: 0.95rem;
+    color: #202124;
+}
+
+.query-issue-suggestions .alternative-list {
+    margin-top: 4px;
+}

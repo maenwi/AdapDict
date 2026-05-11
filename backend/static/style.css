@@ -85,6 +85,7 @@ body {
 .search-bar-group {
     width: 100%;
     margin-bottom: 25px;
+    position: relative;
 }
 
 /* ================================ */
@@ -93,11 +94,13 @@ body {
 .search-bar-group input,
 .search-bar-group textarea {
     width: 100%;
-    padding: 12px 20px;
+    padding: 12px 50px 12px 20px;
     font-size: 16px;
     border: 1px solid #dfe1e5;
     border-radius: 24px;
     box-sizing: border-box;
+    background-color: #ffffff;
+    display: block;
 }
 
 /* hover / focus 효과 */
@@ -114,11 +117,52 @@ body {
 /* ✅ 자동으로 높이 늘어나는 textarea  */
 /* ================================ */
 .search-textarea {
-    resize: none;        /* 크기 드래그 비활성화 */
-    overflow: hidden;    /* 내부 스크롤 숨김 */
+    resize: none;
+    overflow: hidden;
     line-height: 1.4;
-    min-height: 44px;    /* 기본 검색창 높이 */
-    max-height: 180px;   /* 너무 길어지는 것 방지 */
+    min-height: 44px;
+    max-height: 180px;
+}
+
+/* 검색창 내부 제출 버튼 */
+.search-submit-btn {
+    position: absolute;
+    right: 12px;
+    bottom: 8px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #5f6368;
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+body.mode-dict .search-submit-btn {
+    color: #4285F4;
+}
+
+body.mode-ency .search-submit-btn {
+    color: #fe899b;
+}
+
+.search-submit-btn:hover {
+    background-color: #f1f3f4;
+}
+
+body.mode-dict .search-submit-btn:hover {
+    color: #1a73e8;
+}
+
+body.mode-ency .search-submit-btn:hover {
+    color: #fd6b82;
+}
+
+.search-submit-btn svg {
+    display: block;
 }
 
 
@@ -206,6 +250,33 @@ body {
     color: #202124;
 }
 
+.section-title-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
+}
+
+.section-title-row .section-title {
+    margin-bottom: 0;
+}
+
+.export-pdf-btn {
+    background: none;
+    border: 1px solid #dadce0;
+    border-radius: 4px;
+    color: #3c4043;
+    font-size: 13px;
+    padding: 5px 12px;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.export-pdf-btn:hover {
+    border-color: #c4c8cd;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
 /* --- 검색 요약 라인 레이아웃 (Language 안 잘리게) --- */
 .summary-row {
     display: grid;
@@ -283,21 +354,24 @@ body {
 
 #results-search-form {
     display: flex;
-    align-items: flex-end;
-    gap: 12px;
-    flex-wrap: nowrap;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 15px;
     width: 100%;
-    max-width: 800px;
-    margin-bottom: 24px;
+    max-width: 600px;
+    margin-bottom: 30px;
+    border: none;
+    box-shadow: none;
+    padding: 0;
 }
 
 /* 왼쪽 2개 입력칸 */
 #results-search-form .options-grid {
-    display: flex;
-    gap: 12px;
-    margin: 0;
-    width: auto;
-    flex: 0 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin-bottom: 20px;
+    width: 100%;
 }
 
 /* input-group */
@@ -308,38 +382,31 @@ body {
 }
 
 #results-search-form .input-group label {
-    margin: 0 0 4px 0;
-    font-size: 13px;
+    font-size: 14px;
     color: #5f6368;
-    white-space: nowrap;
+    margin-bottom: 5px;
 }
 
 /* 검색창 */
 #results-search-form .search-bar-group {
     margin: 0;
-    flex: 1 1 0;
+    width: 100%;
 }
 
 /* 버튼 */
 #results-search-form .button-group {
-    margin: 0;
-    flex: 0 0 auto;
+    display: none;
 }
 
 #results-search-form select,
-#results-search-form input[type="text"],
-#results-search-form #search-input,
-#results-search-form button {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    height: 40px;
-    padding: 0 16px;
-    border-radius: 999px;
+#results-search-form input[type="text"] {
+    padding: 8px 10px;
     border: 1px solid #dfe1e5;
+    border-radius: 4px;
     font-size: 14px;
     box-sizing: border-box;
     background-color: #ffffff;
+    width: 100%;
 }
 
 #results-search-form .input-group select,
@@ -350,25 +417,31 @@ body {
 #results-search-form .input-group select {
     appearance: auto;
     background-image: none;
-    padding-right: 16px;
 }
 
 #results-search-form #search-input {
-    width: 100%;
+    border-radius: 24px;
+}
+
+#results-search-form .button-group {
+    display: flex;
+    justify-content: flex-start;
 }
 
 #results-search-form .button-group button {
     background-color: #f8f9fa;
     color: #3c4043;
+    padding: 0 24px;
+    height: 40px;
+    border-radius: 4px;
+    border: 1px solid #dadce0;
+    font-weight: 500;
     cursor: pointer;
-    white-space: nowrap;
-    border-color: #dadce0;
-    margin: 0;
 }
 
 #results-search-form .button-group button:hover {
     border-color: #c4c8cd;
-    box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 
 
@@ -624,6 +697,44 @@ body {
     background-color: #007bff;
 }
 
+.nav-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    padding: 0 10px;
+    color: #5f6368;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.2s, transform 0.1s;
+    user-select: none;
+}
+
+.nav-btn:hover {
+    color: #202124;
+}
+
+.nav-btn:active {
+    transform: scale(0.9);
+}
+
+body.mode-dict .nav-btn:hover {
+    color: #4285F4;
+}
+
+body.mode-ency .nav-btn:hover {
+    color: #fe899b;
+}
+
+body.mode-dict .page-dot.active {
+    background-color: #4285F4;
+}
+
+body.mode-ency .page-dot.active {
+    background-color: #fe899b;
+}
+
 .paragraph-sentence-track {
     cursor: pointer;
 }
@@ -652,4 +763,52 @@ body {
 
 .query-issue-suggestions .alternative-list {
     margin-top: 4px;
+}
+
+
+/* ========================= */
+/*        PDF 인쇄 스타일     */
+/* ========================= */
+
+.no-print {
+    /* 인쇄 시 숨겨야 할 요소에 붙이는 클래스 */
+}
+
+@media print {
+    .no-print,
+    .mode-toggle,
+    .lang-selector,
+    #results-search-form,
+    .back-link,
+    .search-submit-btn,
+    .paragraph-sentence-indicator {
+        display: none !important;
+    }
+
+    /* 캐러셀로 숨겨진 문장 카드를 모두 표시 */
+    .paragraph-sentence-track .sentence-card {
+        display: block !important;
+    }
+
+    body {
+        background-color: #ffffff;
+        align-items: flex-start;
+    }
+
+    .results-container {
+        max-width: 100%;
+        padding: 0;
+    }
+
+    .logo-text {
+        font-size: 36px;
+        margin-bottom: 12px;
+    }
+
+    .card,
+    .word-card {
+        box-shadow: none;
+        border: 1px solid #d0d0d0;
+        break-inside: avoid;
+    }
 }

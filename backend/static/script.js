@@ -119,6 +119,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // 초기 상태: 영어 사전 모드
         modeInput.value = 'dict';
         logo.classList.add('logo-mode-dict');
+        document.body.classList.add('mode-dict');
         labelDict.classList.add('active');
         labelEncy.classList.remove('active');
         updateLangUIForMode(); // ✅ 초기 언어 UI 상태 반영
@@ -130,6 +131,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 modeInput.value = 'encyclopedia';
                 logo.classList.remove('logo-mode-dict');
                 logo.classList.add('logo-mode-ency');
+                document.body.classList.remove('mode-dict');
+                document.body.classList.add('mode-ency');
                 labelDict.classList.remove('active');
                 labelEncy.classList.add('active');
             } else {
@@ -137,6 +140,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 modeInput.value = 'dict';
                 logo.classList.remove('logo-mode-ency');
                 logo.classList.add('logo-mode-dict');
+                document.body.classList.remove('mode-ency');
+                document.body.classList.add('mode-dict');
                 labelEncy.classList.remove('active');
                 labelDict.classList.add('active');
             }
@@ -191,6 +196,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
         autoResize();                            // 초기 한 번
         searchInput.addEventListener('input', autoResize);
+
+        // Enter = 폼 제출, Shift+Enter = 줄바꿈
+        searchInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                searchForm.dispatchEvent(new Event('submit'));
+            }
+        });
     }
 
     if (searchForm) {

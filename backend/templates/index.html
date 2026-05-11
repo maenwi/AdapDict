@@ -81,20 +81,19 @@
             </div>
 
             <div class="search-bar-group">
-                <input 
-                    type="search" 
-                    id="search-input" 
-                    name="query" 
-                    placeholder="Enter words, sentences, or paragraphs" 
-                    rows="1"
-                    required
-                ></textarea>
+                <textarea id="search-input" name="query" class="search-textarea"
+                    placeholder="Enter words, sentences, or paragraphs" rows="1" required></textarea>
+                <button type="submit" class="search-submit-btn" aria-label="Search">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="9 10 4 15 9 20"></polyline>
+                        <path d="M20 4v7a4 4 0 0 1-4 4H4"></path>
+                    </svg>
+                </button>
             </div>
 
             <div class="button-group">
-                <button type="submit">Search
-                </button>
-                <button type="button" id="lucky-button">I'm Feeling Lucky</button> 
+                <button type="button" id="lucky-button">I'm Feeling Lucky</button>
             </div>
         </form>
     </main>

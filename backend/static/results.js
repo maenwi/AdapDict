@@ -235,6 +235,31 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (searchInput) searchInput.value = query;
 
     const searchForm = document.getElementById('results-search-form');
+
+    // ✅ 자동 리사이즈: search-input이 textarea일 때만
+    if (searchInput && searchInput.tagName === 'TEXTAREA') {
+        const MAX_HEIGHT = 180; // CSS의 max-height와 맞춤
+
+        const autoResize = () => {
+            searchInput.style.height = 'auto';
+            const newHeight = Math.min(searchInput.scrollHeight, MAX_HEIGHT);
+            searchInput.style.height = newHeight + 'px';
+            searchInput.style.overflowY =
+                searchInput.scrollHeight > MAX_HEIGHT ? 'auto' : 'hidden';
+        };
+
+        autoResize();                            // 초기 한 번
+        searchInput.addEventListener('input', autoResize);
+
+        // ✅ 엔터로 검색 (Shift+Enter는 줄바꿈)
+        searchInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                searchForm.dispatchEvent(new Event('submit'));
+            }
+        });
+    }
+
     searchForm.addEventListener('submit', (e) => {
         e.preventDefault();
 
@@ -260,6 +285,11 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         window.location.href = `/result?${newParams.toString()}`;
     });
+
+    const exportPdfBtn = document.getElementById('export-pdf-btn');
+    if (exportPdfBtn) {
+        exportPdfBtn.addEventListener('click', () => window.print());
+    }
 
     const resultDiv = document.getElementById('result-content');
 
@@ -715,9 +745,15 @@ document.addEventListener('DOMContentLoaded', async () => {
                 if (cards.length <= 1) {
                     indicator.style.display = 'none';
                 } else {
-                    indicator.innerHTML = cards.map((_, idx) =>
+                    const dotsHtml = cards.map((_, idx) =>
                         `<span class="page-dot${idx === 0 ? ' active' : ''}" data-index="${idx}"></span>`
                     ).join('');
+
+                    indicator.innerHTML = `
+                        <button class="nav-btn prev-btn" aria-label="Previous sentence">◀</button>
+                        ${dotsHtml}
+                        <button class="nav-btn next-btn" aria-label="Next sentence">▶</button>
+                    `;
                 }
             }
 
@@ -752,11 +788,27 @@ document.addEventListener('DOMContentLoaded', async () => {
             if (indicator) {
                 indicator.addEventListener('click', (e) => {
                     const dot = e.target.closest('.page-dot');
-                    if (!dot) return;
-                    const idx = Number(dot.dataset.index);
-                    if (!Number.isNaN(idx) && idx >= 0 && idx < cards.length) {
-                        current = idx;
+                    if (dot) {
+                        const idx = Number(dot.dataset.index);
+                        if (!Number.isNaN(idx) && idx >= 0 && idx < cards.length) {
+                            current = idx;
+                            updateView();
+                        }
+                        return;
+                    }
+
+                    const prevBtn = e.target.closest('.prev-btn');
+                    if (prevBtn) {
+                        current = (current - 1 + cards.length) % cards.length;
                         updateView();
+                        return;
+                    }
+
+                    const nextBtn = e.target.closest('.next-btn');
+                    if (nextBtn) {
+                        current = (current + 1) % cards.length;
+                        updateView();
+                        return;
                     }
                 });
             }
